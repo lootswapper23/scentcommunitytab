@@ -72,7 +72,6 @@ export default function PostCreation({
             expiresIn: "24 hours",
           }
         : null,
-      groupName,
       timestamp: new Date(),
     };
 
