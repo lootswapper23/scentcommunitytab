@@ -378,6 +378,7 @@ export default function Index() {
               onComment={handleComment}
               onReply={handleReply}
               onCommentLike={handleCommentLike}
+              onPollVote={handlePollVote}
               isCurrentUser={post.author.name === "John Doe"}
             />
           ))}
