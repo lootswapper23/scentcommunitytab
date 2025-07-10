@@ -224,9 +224,11 @@ export default function Index() {
                 </CardContent>
 
                 <CardFooter className="pt-0">
-                  <Button className="w-full" variant="outline">
-                    {group.isPrivate ? "Request to Join" : "Join Group"}
-                  </Button>
+                  <Link to={`/group/${group.id}`} className="w-full">
+                    <Button className="w-full" variant="outline">
+                      {group.isPrivate ? "Request to Join" : "View Group"}
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
