@@ -100,6 +100,7 @@ export default function PostCard({
   onComment,
   onReply,
   onCommentLike,
+  onPollVote,
   isCurrentUser = false,
 }: PostCardProps) {
   const [showComments, setShowComments] = useState(false);
