@@ -470,7 +470,7 @@ export default function PostCard({
               size="sm"
               onClick={handleLike}
               className={cn(
-                "text-muted-foreground hover:text-foreground",
+                "text-muted-foreground hover:text-foreground transition-all duration-200 active:scale-95",
                 post.isLiked && "text-red-500 hover:text-red-600",
               )}
             >
