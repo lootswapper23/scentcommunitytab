@@ -22,6 +22,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 // Mock data - this will come from an API later
 const featuredGroups = [
