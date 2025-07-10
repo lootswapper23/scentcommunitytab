@@ -33,7 +33,6 @@ import {
   MoreHorizontal,
   Heart,
   MessageCircle,
-  Share2,
   Pin,
   Send,
   ChevronDown,
@@ -45,6 +44,7 @@ import {
   Reply,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import SocialShare from "./SocialShare";
 
 interface Comment {
   id: number;
