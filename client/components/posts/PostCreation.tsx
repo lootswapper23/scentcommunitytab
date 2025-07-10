@@ -109,7 +109,7 @@ export default function PostCreation({
                 readOnly
               />
             </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto mx-4">
               <DialogHeader>
                 <DialogTitle>Create Post</DialogTitle>
               </DialogHeader>
