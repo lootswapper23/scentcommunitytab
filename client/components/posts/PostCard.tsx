@@ -80,6 +80,7 @@ interface Post {
     totalVotes: number;
     userVoted?: string;
     expiresIn: string;
+    isEnded?: boolean;
   };
   groupName?: string;
 }
