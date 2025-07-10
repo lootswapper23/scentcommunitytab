@@ -319,7 +319,7 @@ export default function Index() {
     setPosts((currentPosts) =>
       currentPosts.map((post) =>
         post.id === postId && post.poll
-          ? {
+          ? ({
               ...post,
               poll: {
                 ...post.poll,
@@ -331,7 +331,7 @@ export default function Index() {
                 totalVotes: post.poll.totalVotes + 1,
                 userVoted: post.poll.options[optionIndex].text,
               },
-            }
+            } as any)
           : post,
       ),
     );
