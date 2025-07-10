@@ -249,6 +249,28 @@ export default function Group() {
     );
   };
 
+  const handlePollVote = (postId: number, optionIndex: number) => {
+    setPostsData((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === postId && post.poll
+          ? {
+              ...post,
+              poll: {
+                ...post.poll,
+                options: post.poll.options.map((option, index) =>
+                  index === optionIndex
+                    ? { ...option, votes: option.votes + 1 }
+                    : option,
+                ),
+                totalVotes: post.poll.totalVotes + 1,
+                userVoted: post.poll.options[optionIndex].text,
+              },
+            }
+          : post,
+      ),
+    );
+  };
+
   const handleNewPost = (newPostData: any) => {
     const newPost = {
       id: Date.now(),
