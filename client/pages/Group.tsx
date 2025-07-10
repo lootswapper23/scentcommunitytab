@@ -141,162 +141,89 @@ const posts = [
 ];
 
 export default function Group() {
-  const [newPost, setNewPost] = useState("");
-  const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+  const [postsData, setPostsData] = useState(posts);
 
-  const PostCard = ({ post }: { post: (typeof posts)[0] }) => (
-    <Card className="mb-6">
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center space-x-3">
-            <Avatar>
-              <AvatarImage src={post.author.avatar} />
-              <AvatarFallback>
-                {post.author.name.slice(0, 2).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-semibold">{post.author.name}</span>
-                {post.author.badge && (
-                  <Badge variant="secondary" className="text-xs">
-                    {post.author.badge}
-                  </Badge>
-                )}
-                {post.isPinned && (
-                  <Pin className="h-4 w-4 text-community-orange" />
-                )}
-              </div>
-              <span className="text-sm text-muted-foreground">
-                {post.timestamp}
-              </span>
-            </div>
-          </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <Bookmark className="h-4 w-4 mr-2" />
-                Save Post
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Flag className="h-4 w-4 mr-2" />
-                Report
-              </DropdownMenuItem>
-              {post.author.badge === "Admin" && (
-                <>
-                  <Separator />
-                  <DropdownMenuItem>
-                    <Pin className="h-4 w-4 mr-2" />
-                    {post.isPinned ? "Unpin" : "Pin"} Post
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Edit3 className="h-4 w-4 mr-2" />
-                    Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="text-destructive">
-                    <Trash2 className="h-4 w-4 mr-2" />
-                    Delete
-                  </DropdownMenuItem>
-                </>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </CardHeader>
+  const handleLike = (postId: number) => {
+    setPostsData((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              isLiked: !post.isLiked,
+              likes: post.isLiked ? post.likes - 1 : post.likes + 1,
+            }
+          : post,
+      ),
+    );
+  };
 
-      <CardContent className="pt-0">
-        <p className="text-sm leading-relaxed whitespace-pre-line mb-4">
-          {post.content}
-        </p>
+  const handleComment = (postId: number, content: string) => {
+    const newComment = {
+      id: Date.now(),
+      author: { name: "John Doe", avatar: "/api/placeholder/32/32" },
+      content,
+      timestamp: "Just now",
+      likes: 0,
+      isLiked: false,
+      replies: [],
+    };
 
-        {/* Images */}
-        {post.images.length > 0 && (
-          <div className="grid grid-cols-2 gap-2 mb-4 rounded-lg overflow-hidden">
-            {post.images.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt=""
-                className="w-full h-48 object-cover"
-              />
-            ))}
-          </div>
-        )}
+    setPostsData((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === postId
+          ? { ...post, comments: [...post.comments, newComment] }
+          : post,
+      ),
+    );
+  };
 
-        {/* Poll */}
-        {post.poll && (
-          <div className="border rounded-lg p-4 mb-4 bg-secondary/50">
-            <h4 className="font-semibold mb-3">{post.poll.question}</h4>
-            <div className="space-y-2 mb-3">
-              {post.poll.options.map((option, index) => {
-                const percentage = (option.votes / post.poll!.totalVotes) * 100;
-                const isVoted = post.poll!.userVoted === option.text;
+  const handleReply = (postId: number, commentId: number, content: string) => {
+    const newReply = {
+      id: Date.now(),
+      author: { name: "John Doe", avatar: "/api/placeholder/32/32" },
+      content,
+      timestamp: "Just now",
+      likes: 0,
+      isLiked: false,
+      replies: [],
+    };
 
-                return (
-                  <div
-                    key={index}
-                    className={cn(
-                      "relative rounded-md p-3 border cursor-pointer transition-colors",
-                      isVoted
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:bg-secondary/50",
-                    )}
-                  >
-                    <div
-                      className="absolute inset-0 bg-primary/10 rounded-md transition-all"
-                      style={{ width: `${percentage}%` }}
-                    />
-                    <div className="relative flex justify-between items-center">
-                      <span className="text-sm font-medium">{option.text}</span>
-                      <span className="text-xs text-muted-foreground">
-                        {percentage.toFixed(1)}%
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="text-xs text-muted-foreground">
-              {post.poll.totalVotes} votes • Expires in {post.poll.expiresIn}
-            </div>
-          </div>
-        )}
-      </CardContent>
+    setPostsData((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              comments: post.comments.map((comment) =>
+                comment.id === commentId
+                  ? { ...comment, replies: [...comment.replies, newReply] }
+                  : comment,
+              ),
+            }
+          : post,
+      ),
+    );
+  };
 
-      <CardFooter className="pt-0">
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={cn(
-                "text-muted-foreground hover:text-foreground",
-                post.isLiked && "text-red-500 hover:text-red-600",
-              )}
-            >
-              <Heart
-                className={cn("h-4 w-4 mr-2", post.isLiked && "fill-current")}
-              />
-              {post.likes}
-            </Button>
-            <Button variant="ghost" size="sm">
-              <MessageCircle className="h-4 w-4 mr-2" />
-              {post.comments}
-            </Button>
-            <Button variant="ghost" size="sm">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
-            </Button>
-          </div>
-        </div>
-      </CardFooter>
-    </Card>
-  );
+  const handleNewPost = (newPostData: any) => {
+    const newPost = {
+      id: Date.now(),
+      author: {
+        name: "John Doe",
+        avatar: "/api/placeholder/40/40",
+      },
+      content: newPostData.content,
+      timestamp: "Just now",
+      likes: 0,
+      comments: [],
+      isLiked: false,
+      images: newPostData.images?.map((file: File) =>
+        URL.createObjectURL(file),
+      ),
+      poll: newPostData.poll,
+    };
+
+    setPostsData([newPost, ...postsData]);
+  };
 
   return (
     <MainLayout>
