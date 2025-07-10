@@ -143,6 +143,10 @@ export default function PostCard({
     setEditContent("");
   };
 
+  const handleCommentLike = (commentId: number) => {
+    onCommentLike?.(post.id, commentId);
+  };
+
   const votePoll = (optionIndex: number) => {
     // In a real app, this would call an API
     console.log(`Voted for option ${optionIndex}`);
