@@ -81,7 +81,7 @@ interface Post {
     userVoted?: string;
     expiresIn: string;
     isEnded?: boolean;
-  };
+  } | null;
   groupName?: string;
 }
 
