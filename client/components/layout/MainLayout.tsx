@@ -110,18 +110,27 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </h3>
             <div className="space-y-1">
               {/* This will be dynamic later */}
-              <div className="flex items-center space-x-2 px-2 py-1 rounded text-sm text-muted-foreground hover:text-foreground cursor-pointer">
+              <Link
+                to="/group/1"
+                className="flex items-center space-x-2 px-2 py-1 rounded text-sm text-muted-foreground hover:text-foreground cursor-pointer"
+              >
                 <div className="h-6 w-6 rounded bg-community-green"></div>
                 <span>React Developers</span>
-              </div>
-              <div className="flex items-center space-x-2 px-2 py-1 rounded text-sm text-muted-foreground hover:text-foreground cursor-pointer">
+              </Link>
+              <Link
+                to="/group/2"
+                className="flex items-center space-x-2 px-2 py-1 rounded text-sm text-muted-foreground hover:text-foreground cursor-pointer"
+              >
                 <div className="h-6 w-6 rounded bg-community-purple"></div>
                 <span>Design Systems</span>
-              </div>
-              <div className="flex items-center space-x-2 px-2 py-1 rounded text-sm text-muted-foreground hover:text-foreground cursor-pointer">
+              </Link>
+              <Link
+                to="/group/3"
+                className="flex items-center space-x-2 px-2 py-1 rounded text-sm text-muted-foreground hover:text-foreground cursor-pointer"
+              >
                 <div className="h-6 w-6 rounded bg-community-orange"></div>
                 <span>Remote Workers</span>
-              </div>
+              </Link>
             </div>
           </div>
         </aside>
