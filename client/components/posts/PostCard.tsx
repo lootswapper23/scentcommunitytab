@@ -367,14 +367,41 @@ export default function PostCard({
 
         {/* Images */}
         {post.images && post.images.length > 0 && (
-          <div className="grid grid-cols-2 gap-2 mb-4 rounded-lg overflow-hidden">
-            {post.images.map((image, index) => (
-              <img
+          <div
+            className={cn(
+              "mb-4 rounded-lg overflow-hidden",
+              post.images.length === 1 && "max-w-full",
+              post.images.length === 2 && "grid grid-cols-2 gap-1",
+              post.images.length >= 3 && "grid grid-cols-2 gap-1",
+            )}
+          >
+            {post.images.slice(0, 4).map((image, index) => (
+              <div
                 key={index}
-                src={image}
-                alt=""
-                className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-              />
+                className={cn(
+                  "relative",
+                  post.images.length === 1 && "aspect-square max-h-80",
+                  post.images.length === 2 && "aspect-square",
+                  post.images.length >= 3 &&
+                    index === 0 &&
+                    "col-span-2 aspect-video",
+                  post.images.length >= 3 && index > 0 && "aspect-square",
+                )}
+              >
+                <img
+                  src={image}
+                  alt=""
+                  className="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                />
+                {/* Show count overlay for 4+ images */}
+                {post.images.length > 4 && index === 3 && (
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                    <span className="text-white text-lg font-semibold">
+                      +{post.images.length - 4}
+                    </span>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         )}
