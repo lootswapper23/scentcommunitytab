@@ -300,7 +300,6 @@ export default function Group() {
             <div className="lg:col-span-2">
               {/* Create Post */}
               <PostCreation
-                groupName={groupData.name}
                 placeholder={`Share something with ${groupData.name}...`}
                 onPost={handleNewPost}
               />
