@@ -12,7 +12,7 @@ const initialPosts = [
       avatar: "/api/placeholder/40/40",
     },
     content:
-      "Just launched my new React component library! 🚀 It focuses on accessibility-first design and includes 30+ components. The feedback from the community has been incredible so far.\n\nKey features:\n• Full TypeScript support\n• WAI-ARIA compliant\n• Dark mode built-in\n• Customizable themes\n\nWould love to hear your thoughts! 👇",
+      "Just launched my new React component library! 🚀 It focuses on accessibility-first design and includes 30+ components. The feedback from the community has been incredible so far.\n\nKey features:\n• Full TypeScript support\n• WAI-ARIA compliant\n�� Dark mode built-in\n• Customizable themes\n\nWould love to hear your thoughts! 👇",
     timestamp: "2 hours ago",
     likes: 124,
     comments: [
@@ -89,6 +89,7 @@ const initialPosts = [
       totalVotes: 780,
       userVoted: "Work-life balance",
       expiresIn: "18 hours",
+      isEnded: false,
     },
   },
   {
