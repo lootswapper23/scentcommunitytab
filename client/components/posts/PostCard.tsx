@@ -150,8 +150,7 @@ export default function PostCard({
   };
 
   const votePoll = (optionIndex: number) => {
-    // In a real app, this would call an API
-    console.log(`Voted for option ${optionIndex}`);
+    onPollVote?.(post.id, optionIndex);
   };
 
   const CommentComponent = ({
