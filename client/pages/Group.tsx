@@ -1,8 +1,8 @@
 import { useState } from "react";
 import MainLayout from "@/components/layout/MainLayout";
+import PostCreation from "@/components/posts/PostCreation";
+import PostCard from "@/components/posts/PostCard";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
@@ -11,39 +11,13 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Users,
-  MoreHorizontal,
-  Heart,
-  MessageCircle,
-  Share2,
-  Pin,
-  Image as ImageIcon,
-  BarChart3,
-  Send,
-  Settings,
-  UserPlus,
-  Bell,
-  Bookmark,
-  Flag,
-  Edit3,
-  Trash2,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Users, Settings, UserPlus, Bell } from "lucide-react";
 
 // Mock data
 const groupData = {
