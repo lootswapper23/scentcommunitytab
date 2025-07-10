@@ -16,13 +16,11 @@ import { ImageIcon, BarChart3, X, Plus, Send, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PostCreationProps {
-  groupName?: string;
   placeholder?: string;
   onPost?: (post: any) => void;
 }
 
 export default function PostCreation({
-  groupName,
   placeholder = "What's on your mind?",
   onPost,
 }: PostCreationProps) {
