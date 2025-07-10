@@ -47,11 +47,31 @@ const posts = [
       "🚀 Exciting news! React 18.3 has been released with some amazing performance improvements. Key highlights include:\n\n• Better Concurrent Features\n• Improved Server Components\n• Enhanced DevTools integration\n\nWhat are you most excited about? Share your thoughts below! 👇",
     timestamp: "2 hours ago",
     likes: 42,
-    comments: 8,
+    comments: [
+      {
+        id: 1,
+        author: { name: "Sarah Wilson", avatar: "/api/placeholder/32/32" },
+        content:
+          "The concurrent features are game-changing! Can't wait to implement them.",
+        timestamp: "1 hour ago",
+        likes: 8,
+        isLiked: false,
+        replies: [
+          {
+            id: 2,
+            author: { name: "Alex Johnson", avatar: "/api/placeholder/32/32" },
+            content: "Absolutely! The performance improvements are incredible.",
+            timestamp: "45 minutes ago",
+            likes: 5,
+            isLiked: true,
+            replies: [],
+          },
+        ],
+      },
+    ],
     isLiked: false,
     isPinned: true,
     images: [],
-    poll: null,
   },
   {
     id: 2,
@@ -63,7 +83,18 @@ const posts = [
       "I'm working on a new component library and need some feedback. Should I prioritize accessibility features or performance optimizations first?",
     timestamp: "4 hours ago",
     likes: 23,
-    comments: 15,
+    comments: [
+      {
+        id: 3,
+        author: { name: "Mike Chen", avatar: "/api/placeholder/32/32" },
+        content:
+          "Accessibility should always come first! Users with disabilities deserve equal access.",
+        timestamp: "3 hours ago",
+        likes: 12,
+        isLiked: false,
+        replies: [],
+      },
+    ],
     isLiked: true,
     isPinned: false,
     images: [],
@@ -89,14 +120,23 @@ const posts = [
       "Just finished building a real-time chat app with React and Socket.io! The learning curve was steep but so worth it. Here are some screenshots of the final result:",
     timestamp: "1 day ago",
     likes: 67,
-    comments: 23,
+    comments: [
+      {
+        id: 4,
+        author: { name: "Emma Davis", avatar: "/api/placeholder/32/32" },
+        content: "This looks amazing! Would love to see the code on GitHub.",
+        timestamp: "20 hours ago",
+        likes: 15,
+        isLiked: false,
+        replies: [],
+      },
+    ],
     isLiked: false,
     isPinned: false,
     images: [
       "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400",
     ],
-    poll: null,
   },
 ];
 
