@@ -298,62 +298,25 @@ export default function Group() {
             {/* Main Feed */}
             <div className="lg:col-span-2">
               {/* Create Post */}
-              <Card className="mb-6">
-                <CardContent className="pt-6">
-                  <div className="flex items-center space-x-3">
-                    <Avatar>
-                      <AvatarImage src="/api/placeholder/40/40" />
-                      <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-                    <Dialog
-                      open={isCreatePostOpen}
-                      onOpenChange={setIsCreatePostOpen}
-                    >
-                      <DialogTrigger asChild>
-                        <Input
-                          placeholder="What's on your mind?"
-                          className="cursor-pointer"
-                          readOnly
-                        />
-                      </DialogTrigger>
-                      <DialogContent className="max-w-lg">
-                        <DialogHeader>
-                          <DialogTitle>Create Post</DialogTitle>
-                        </DialogHeader>
-                        <div className="space-y-4">
-                          <Textarea
-                            placeholder="What's on your mind?"
-                            value={newPost}
-                            onChange={(e) => setNewPost(e.target.value)}
-                            className="min-h-32"
-                          />
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                              <Button variant="ghost" size="sm">
-                                <ImageIcon className="h-4 w-4 mr-2" />
-                                Photo
-                              </Button>
-                              <Button variant="ghost" size="sm">
-                                <BarChart3 className="h-4 w-4 mr-2" />
-                                Poll
-                              </Button>
-                            </div>
-                            <Button>
-                              <Send className="h-4 w-4 mr-2" />
-                              Post
-                            </Button>
-                          </div>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-                </CardContent>
-              </Card>
+              <PostCreation
+                groupName={groupData.name}
+                placeholder={`Share something with ${groupData.name}...`}
+                onPost={handleNewPost}
+              />
 
               {/* Posts Feed */}
-              {posts.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
+              <div className="mt-6">
+                {postsData.map((post) => (
+                  <PostCard
+                    key={post.id}
+                    post={post}
+                    onLike={handleLike}
+                    onComment={handleComment}
+                    onReply={handleReply}
+                    isCurrentUser={post.author.name === "John Doe"}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Sidebar */}
