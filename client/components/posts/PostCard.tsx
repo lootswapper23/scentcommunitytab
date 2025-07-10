@@ -457,10 +457,11 @@ export default function PostCard({
               </CollapsibleTrigger>
             </Collapsible>
 
-            <Button variant="ghost" size="sm">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
-            </Button>
+            <SocialShare
+              postId={post.id}
+              postContent={post.content}
+              author={post.author.name}
+            />
           </div>
         </div>
 
