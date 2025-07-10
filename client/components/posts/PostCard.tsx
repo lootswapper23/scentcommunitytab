@@ -89,6 +89,7 @@ interface PostCardProps {
   onLike?: (postId: number) => void;
   onComment?: (postId: number, content: string) => void;
   onReply?: (postId: number, commentId: number, content: string) => void;
+  onCommentLike?: (postId: number, commentId: number) => void;
   isCurrentUser?: boolean;
 }
 
