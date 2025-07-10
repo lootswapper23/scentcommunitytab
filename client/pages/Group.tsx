@@ -216,6 +216,7 @@ export default function Group() {
       likes: 0,
       comments: [],
       isLiked: false,
+      isPinned: false,
       images: newPostData.images?.map((file: File) =>
         URL.createObjectURL(file),
       ),
