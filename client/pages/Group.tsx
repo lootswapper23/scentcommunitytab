@@ -204,6 +204,29 @@ export default function Group() {
     );
   };
 
+  const handleCommentLike = (postId: number, commentId: number) => {
+    setPostsData((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              comments: post.comments.map((comment) =>
+                comment.id === commentId
+                  ? {
+                      ...comment,
+                      isLiked: !comment.isLiked,
+                      likes: comment.isLiked
+                        ? comment.likes - 1
+                        : comment.likes + 1,
+                    }
+                  : comment,
+              ),
+            }
+          : post,
+      ),
+    );
+  };
+
   const handleNewPost = (newPostData: any) => {
     const newPost = {
       id: Date.now(),
