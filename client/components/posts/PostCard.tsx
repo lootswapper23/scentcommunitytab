@@ -90,6 +90,7 @@ interface PostCardProps {
   onComment?: (postId: number, content: string) => void;
   onReply?: (postId: number, commentId: number, content: string) => void;
   onCommentLike?: (postId: number, commentId: number) => void;
+  onPollVote?: (postId: number, optionIndex: number) => void;
   isCurrentUser?: boolean;
 }
 
