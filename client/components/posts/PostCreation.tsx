@@ -111,10 +111,7 @@ export default function PostCreation({
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle className="flex items-center space-x-2">
-                  <span>Create Post</span>
-                  {groupName && <Badge variant="outline">in {groupName}</Badge>}
-                </DialogTitle>
+                <DialogTitle>Create Post</DialogTitle>
               </DialogHeader>
 
               <div className="space-y-4">
