@@ -408,9 +408,11 @@ export default function PostCard({
 
         {/* Poll */}
         {post.poll && (
-          <div className="border rounded-lg p-4 mb-4 bg-secondary/50">
-            <h4 className="font-semibold mb-3">{post.poll.question}</h4>
-            <div className="space-y-2 mb-3">
+          <div className="border rounded-xl p-4 mb-4 bg-gradient-to-br from-secondary/30 to-secondary/60">
+            <h4 className="font-semibold mb-4 text-base">
+              {post.poll.question}
+            </h4>
+            <div className="space-y-3 mb-4">
               {post.poll.options.map((option, index) => {
                 const percentage = (option.votes / post.poll!.totalVotes) * 100;
                 const isVoted = post.poll!.userVoted === option.text;
@@ -420,24 +422,24 @@ export default function PostCard({
                     key={index}
                     onClick={() => votePoll(index)}
                     className={cn(
-                      "relative w-full rounded-md p-3 border cursor-pointer transition-all text-left hover:bg-secondary/80",
+                      "relative w-full rounded-xl p-4 border-2 cursor-pointer transition-all text-left active:scale-[0.98]",
                       isVoted
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:bg-secondary/50",
+                        ? "border-primary bg-primary/10 shadow-md"
+                        : "border-border bg-background hover:bg-secondary/30 hover:border-primary/50",
                     )}
                   >
                     <div
-                      className="absolute inset-0 bg-primary/10 rounded-md transition-all"
+                      className="absolute inset-0 bg-gradient-to-r from-primary/20 to-community-blue/20 rounded-xl transition-all duration-500"
                       style={{ width: `${percentage}%` }}
                     />
                     <div className="relative flex justify-between items-center">
-                      <span className="text-sm font-medium">{option.text}</span>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-xs text-muted-foreground">
+                      <span className="font-medium">{option.text}</span>
+                      <div className="flex items-center space-x-3">
+                        <span className="text-sm font-semibold text-primary">
                           {option.votes}
                         </span>
-                        <span className="text-xs text-muted-foreground">
-                          {percentage.toFixed(1)}%
+                        <span className="text-sm font-bold">
+                          {percentage.toFixed(0)}%
                         </span>
                       </div>
                     </div>
@@ -445,8 +447,9 @@ export default function PostCard({
                 );
               })}
             </div>
-            <div className="text-xs text-muted-foreground">
-              {post.poll.totalVotes} votes • Expires in {post.poll.expiresIn}
+            <div className="text-sm text-muted-foreground flex items-center justify-between">
+              <span>{post.poll.totalVotes} total votes</span>
+              <span>Expires in {post.poll.expiresIn}</span>
             </div>
           </div>
         )}
