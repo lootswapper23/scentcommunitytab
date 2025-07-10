@@ -210,17 +210,38 @@ export default function Group() {
         post.id === postId
           ? {
               ...post,
-              comments: post.comments.map((comment) =>
-                comment.id === commentId
-                  ? {
-                      ...comment,
-                      isLiked: !comment.isLiked,
-                      likes: comment.isLiked
-                        ? comment.likes - 1
-                        : comment.likes + 1,
-                    }
-                  : comment,
-              ),
+              comments: post.comments.map((comment) => {
+                // Check if it's a direct comment
+                if (comment.id === commentId) {
+                  return {
+                    ...comment,
+                    isLiked: !comment.isLiked,
+                    likes: comment.isLiked
+                      ? comment.likes - 1
+                      : comment.likes + 1,
+                  };
+                }
+
+                // Check if it's a nested reply
+                if (comment.replies.some((reply) => reply.id === commentId)) {
+                  return {
+                    ...comment,
+                    replies: comment.replies.map((reply) =>
+                      reply.id === commentId
+                        ? {
+                            ...reply,
+                            isLiked: !reply.isLiked,
+                            likes: reply.isLiked
+                              ? reply.likes - 1
+                              : reply.likes + 1,
+                          }
+                        : reply,
+                    ),
+                  };
+                }
+
+                return comment;
+              }),
             }
           : post,
       ),
