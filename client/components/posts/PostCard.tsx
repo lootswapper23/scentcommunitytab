@@ -475,7 +475,10 @@ export default function PostCard({
               )}
             >
               <Heart
-                className={cn("h-4 w-4 mr-2", post.isLiked && "fill-current")}
+                className={cn(
+                  "h-4 w-4 mr-2 transition-all duration-200",
+                  post.isLiked && "fill-current scale-110",
+                )}
               />
               {post.likes}
             </Button>
