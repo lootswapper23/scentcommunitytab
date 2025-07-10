@@ -207,8 +207,9 @@ export default function PostCard({
             <Button
               variant="ghost"
               size="sm"
+              onClick={() => handleCommentLike(comment.id)}
               className={cn(
-                "h-auto p-0 text-xs text-muted-foreground hover:text-foreground",
+                "h-auto p-0 text-xs text-muted-foreground hover:text-foreground transition-colors",
                 comment.isLiked && "text-red-500 hover:text-red-600",
               )}
             >
