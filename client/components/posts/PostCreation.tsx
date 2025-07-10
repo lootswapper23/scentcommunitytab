@@ -1,0 +1,273 @@
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { ImageIcon, BarChart3, X, Plus, Send, Calendar } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface PostCreationProps {
+  groupName?: string;
+  placeholder?: string;
+  onPost?: (post: any) => void;
+}
+
+export default function PostCreation({
+  groupName,
+  placeholder = "What's on your mind?",
+  onPost,
+}: PostCreationProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [postContent, setPostContent] = useState("");
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [showPoll, setShowPoll] = useState(false);
+  const [pollQuestion, setPollQuestion] = useState("");
+  const [pollOptions, setPollOptions] = useState(["", ""]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (selectedImages.length + files.length <= 4) {
+      setSelectedImages([...selectedImages, ...files]);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setSelectedImages(selectedImages.filter((_, i) => i !== index));
+  };
+
+  const addPollOption = () => {
+    if (pollOptions.length < 4) {
+      setPollOptions([...pollOptions, ""]);
+    }
+  };
+
+  const removePollOption = (index: number) => {
+    if (pollOptions.length > 2) {
+      setPollOptions(pollOptions.filter((_, i) => i !== index));
+    }
+  };
+
+  const updatePollOption = (index: number, value: string) => {
+    const newOptions = [...pollOptions];
+    newOptions[index] = value;
+    setPollOptions(newOptions);
+  };
+
+  const handlePost = () => {
+    const post = {
+      content: postContent,
+      images: selectedImages,
+      poll: showPoll
+        ? {
+            question: pollQuestion,
+            options: pollOptions.filter((opt) => opt.trim() !== ""),
+            expiresIn: "24 hours",
+          }
+        : null,
+      groupName,
+      timestamp: new Date(),
+    };
+
+    onPost?.(post);
+
+    // Reset form
+    setPostContent("");
+    setSelectedImages([]);
+    setShowPoll(false);
+    setPollQuestion("");
+    setPollOptions(["", ""]);
+    setIsOpen(false);
+  };
+
+  const canPost =
+    postContent.trim() ||
+    selectedImages.length > 0 ||
+    (showPoll &&
+      pollQuestion.trim() &&
+      pollOptions.filter((opt) => opt.trim()).length >= 2);
+
+  return (
+    <Card>
+      <CardContent className="pt-6">
+        <div className="flex items-center space-x-3">
+          <Avatar>
+            <AvatarImage src="/api/placeholder/40/40" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Input
+                placeholder={placeholder}
+                className="cursor-pointer bg-secondary/50"
+                readOnly
+              />
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle className="flex items-center space-x-2">
+                  <span>Create Post</span>
+                  {groupName && <Badge variant="outline">in {groupName}</Badge>}
+                </DialogTitle>
+              </DialogHeader>
+
+              <div className="space-y-4">
+                {/* Post Content */}
+                <div className="flex items-start space-x-3">
+                  <Avatar>
+                    <AvatarImage src="/api/placeholder/40/40" />
+                    <AvatarFallback>JD</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <Textarea
+                      placeholder={placeholder}
+                      value={postContent}
+                      onChange={(e) => setPostContent(e.target.value)}
+                      className="min-h-24 resize-none border-none shadow-none text-lg placeholder:text-muted-foreground focus-visible:ring-0"
+                    />
+                  </div>
+                </div>
+
+                {/* Selected Images */}
+                {selectedImages.length > 0 && (
+                  <div className="grid grid-cols-2 gap-2 p-4 border rounded-lg">
+                    {selectedImages.map((file, index) => (
+                      <div key={index} className="relative">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt={`Selected ${index + 1}`}
+                          className="w-full h-32 object-cover rounded-lg"
+                        />
+                        <Button
+                          variant="destructive"
+                          size="icon"
+                          className="absolute top-2 right-2 h-6 w-6"
+                          onClick={() => removeImage(index)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Poll Creation */}
+                {showPoll && (
+                  <div className="p-4 border rounded-lg space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-semibold">Create Poll</h4>
+                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                        <Calendar className="h-4 w-4" />
+                        <span>Expires in 24 hours</span>
+                      </div>
+                    </div>
+
+                    <Input
+                      placeholder="Ask a question..."
+                      value={pollQuestion}
+                      onChange={(e) => setPollQuestion(e.target.value)}
+                      className="font-medium"
+                    />
+
+                    <div className="space-y-2">
+                      {pollOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
+                          <Input
+                            placeholder={`Option ${index + 1}`}
+                            value={option}
+                            onChange={(e) =>
+                              updatePollOption(index, e.target.value)
+                            }
+                          />
+                          {pollOptions.length > 2 && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => removePollOption(index)}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                      ))}
+
+                      {pollOptions.length < 4 && (
+                        <Button
+                          variant="ghost"
+                          onClick={addPollOption}
+                          className="w-full border-2 border-dashed"
+                        >
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add Option
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Actions */}
+                <div className="flex items-center justify-between pt-4 border-t">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleImageSelect}
+                      multiple
+                      accept="image/*"
+                      className="hidden"
+                    />
+
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={selectedImages.length >= 4}
+                      className="text-community-green hover:text-community-green hover:bg-community-green/10"
+                    >
+                      <ImageIcon className="h-4 w-4 mr-2" />
+                      Photo ({selectedImages.length}/4)
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setShowPoll(!showPoll)}
+                      className={cn(
+                        "text-community-blue hover:text-community-blue hover:bg-community-blue/10",
+                        showPoll && "bg-community-blue/10 text-community-blue",
+                      )}
+                    >
+                      <BarChart3 className="h-4 w-4 mr-2" />
+                      Poll
+                    </Button>
+                  </div>
+
+                  <Button
+                    onClick={handlePost}
+                    disabled={!canPost}
+                    className="bg-gradient-to-r from-primary to-community-blue"
+                  >
+                    <Send className="h-4 w-4 mr-2" />
+                    Post
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
