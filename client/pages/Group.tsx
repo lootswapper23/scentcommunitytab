@@ -336,6 +336,7 @@ export default function Group() {
                     onLike={handleLike}
                     onComment={handleComment}
                     onReply={handleReply}
+                    onCommentLike={handleCommentLike}
                     isCurrentUser={post.author.name === "John Doe"}
                   />
                 ))}
