@@ -425,40 +425,61 @@ export default function PostCard({
               {post.poll.options.map((option, index) => {
                 const percentage = (option.votes / post.poll!.totalVotes) * 100;
                 const isVoted = post.poll!.userVoted === option.text;
+                const hasVoted = !!post.poll!.userVoted;
+                const isPollEnded = post.poll!.isEnded;
+                const showResults = hasVoted || isPollEnded;
 
                 return (
                   <button
                     key={index}
                     onClick={() => votePoll(index)}
+                    disabled={hasVoted || isPollEnded}
                     className={cn(
                       "relative w-full rounded-xl p-4 border-2 cursor-pointer transition-all text-left active:scale-[0.98]",
                       isVoted
                         ? "border-primary bg-primary/10 shadow-md"
                         : "border-border bg-background hover:bg-secondary/30 hover:border-primary/50",
+                      (hasVoted || isPollEnded) && !isVoted && "opacity-70",
+                      (hasVoted || isPollEnded) && "cursor-default",
                     )}
                   >
-                    <div
-                      className="absolute inset-0 bg-gradient-to-r from-primary/20 to-community-blue/20 rounded-xl transition-all duration-500"
-                      style={{ width: `${percentage}%` }}
-                    />
+                    {/* Progress bar - only show if results should be visible */}
+                    {showResults && (
+                      <div
+                        className="absolute inset-0 bg-gradient-to-r from-primary/20 to-community-blue/20 rounded-xl transition-all duration-500"
+                        style={{ width: `${percentage}%` }}
+                      />
+                    )}
                     <div className="relative flex justify-between items-center">
                       <span className="font-medium">{option.text}</span>
-                      <div className="flex items-center space-x-3">
-                        <span className="text-sm font-semibold text-primary">
-                          {option.votes}
-                        </span>
-                        <span className="text-sm font-bold">
-                          {percentage.toFixed(0)}%
-                        </span>
-                      </div>
+                      {showResults ? (
+                        <div className="flex items-center space-x-3">
+                          <span className="text-sm font-semibold text-primary">
+                            {option.votes}
+                          </span>
+                          <span className="text-sm font-bold">
+                            {percentage.toFixed(0)}%
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="w-4 h-4 rounded-full border-2 border-muted-foreground" />
+                      )}
                     </div>
                   </button>
                 );
               })}
             </div>
             <div className="text-sm text-muted-foreground flex items-center justify-between">
-              <span>{post.poll.totalVotes} total votes</span>
-              <span>Expires in {post.poll.expiresIn}</span>
+              {post.poll.userVoted || post.poll.isEnded ? (
+                <span>{post.poll.totalVotes} total votes</span>
+              ) : (
+                <span>Vote to see results</span>
+              )}
+              <span>
+                {post.poll.isEnded
+                  ? "Poll ended"
+                  : `Expires in ${post.poll.expiresIn}`}
+              </span>
             </div>
           </div>
         )}
