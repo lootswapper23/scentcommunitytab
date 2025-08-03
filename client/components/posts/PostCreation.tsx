@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 interface PostCreationProps {
   placeholder?: string;
   onPost?: (post: any) => void;
+  showActionButtons?: boolean;
 }
 
 export default function PostCreation({
