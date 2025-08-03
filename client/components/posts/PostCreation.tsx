@@ -305,6 +305,31 @@ export default function PostCreation({
             </DialogContent>
           </Dialog>
         </div>
+
+        {/* Action Buttons for Homepage */}
+        {showActionButtons && (
+          <div className="flex items-center justify-center space-x-4 pt-4 border-t">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={openWithImage}
+              className="text-community-green hover:text-community-green hover:bg-community-green/10"
+            >
+              <ImageIcon className="h-4 w-4 mr-2" />
+              Add Image
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={openWithPoll}
+              className="text-community-blue hover:text-community-blue hover:bg-community-blue/10"
+            >
+              <BarChart3 className="h-4 w-4 mr-2" />
+              Create Poll
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
