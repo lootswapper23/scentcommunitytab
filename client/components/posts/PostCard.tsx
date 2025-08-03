@@ -515,9 +515,11 @@ export default function PostCard({
                 <span>Vote to see results</span>
               )}
               <span>
-                {post.poll.isEnded
+                {post.poll.isEnded || (post.poll.expiresAt && post.poll.expiresAt <= currentTime)
                   ? "Poll ended"
-                  : `Expires in ${post.poll.expiresIn}`}
+                  : post.poll.expiresAt
+                    ? formatTimeRemaining(post.poll.expiresAt)
+                    : `Expires in ${post.poll.expiresIn}`}
               </span>
             </div>
           </div>
