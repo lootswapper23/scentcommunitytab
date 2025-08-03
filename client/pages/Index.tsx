@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MobileLayout from "@/components/layout/MobileLayout";
 import PostCreation from "@/components/posts/PostCreation";
 import PostCard from "@/components/posts/PostCard";
