@@ -25,15 +25,6 @@ export default function MobileLayout({ children }: MobileLayoutProps) {
 
           {/* Right side */}
           <div className="flex items-center space-x-3">
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-3 w-3 bg-community-orange rounded-full border-2 border-background"></span>
-            </Button>
-
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="/api/placeholder/32/32" />
-              <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
           </div>
         </div>
       </header>
