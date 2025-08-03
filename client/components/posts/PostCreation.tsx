@@ -235,25 +235,27 @@ export default function PostCreation({
                   </div>
                 )}
 
-                {/* Color Background Section */}
-                <div className="p-4 border rounded-lg space-y-3">
-                  <h4 className="font-semibold">Add Color Background</h4>
-                  <div className="flex items-center space-x-3">
-                    <button
-                      type="button"
-                      onClick={() => setHasOrangeBackground(!hasOrangeBackground)}
-                      className={cn(
-                        "w-12 h-12 rounded-lg bg-community-orange transition-all duration-200 hover:scale-105",
-                        hasOrangeBackground
-                          ? "border-4 border-black shadow-lg"
-                          : "border-2 border-transparent"
-                      )}
-                    />
-                    <span className="text-sm text-muted-foreground">
-                      {hasOrangeBackground ? "Orange background selected" : ""}
-                    </span>
+                {/* Color Background Section - Only show if no images */}
+                {selectedImages.length === 0 && (
+                  <div className="p-4 border rounded-lg space-y-3">
+                    <h4 className="font-semibold">Add Color Background</h4>
+                    <div className="flex items-center space-x-3">
+                      <button
+                        type="button"
+                        onClick={() => setHasOrangeBackground(!hasOrangeBackground)}
+                        className={cn(
+                          "w-12 h-12 rounded-lg bg-community-orange transition-all duration-200 hover:scale-105",
+                          hasOrangeBackground
+                            ? "border-4 border-black shadow-lg"
+                            : "border-2 border-transparent"
+                        )}
+                      />
+                      <span className="text-sm text-muted-foreground">
+                        {hasOrangeBackground ? "Orange background selected" : ""}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Actions */}
                 <div className="flex items-center justify-between pt-4 border-t">
