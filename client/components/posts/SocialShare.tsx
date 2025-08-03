@@ -14,11 +14,8 @@ import {
   Share2,
   Copy,
   MessageCircle,
-  Mail,
   Check,
   Facebook,
-  Twitter,
-  Linkedin,
   Instagram,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -41,6 +38,18 @@ export default function SocialShare({
   const postUrl = `${window.location.origin}/post/${postId}`;
   const shareText = `Check out this post by ${author}: "${postContent.slice(0, 100)}${postContent.length > 100 ? "..." : ""}"`;
 
+  // Custom X (Twitter) icon component
+  const XIcon = ({ className }: { className?: string }) => (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+
   const shareOptions = [
     {
       name: "Copy Link",
@@ -55,28 +64,16 @@ export default function SocialShare({
       action: () => shareViaMessages(),
     },
     {
-      name: "Email",
-      icon: Mail,
-      color: "bg-community-green text-white",
-      action: () => shareViaEmail(),
-    },
-    {
       name: "Facebook",
       icon: Facebook,
       color: "bg-blue-600 text-white",
       action: () => shareToFacebook(),
     },
     {
-      name: "Twitter",
-      icon: Twitter,
+      name: "X",
+      icon: XIcon,
       color: "bg-black text-white",
-      action: () => shareToTwitter(),
-    },
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      color: "bg-blue-700 text-white",
-      action: () => shareToLinkedIn(),
+      action: () => shareToX(),
     },
     {
       name: "Instagram",
@@ -174,26 +171,19 @@ export default function SocialShare({
     }
   };
 
-  const shareViaEmail = () => {
-    const subject = encodeURIComponent("Check out this Community post");
-    const body = encodeURIComponent(`${shareText}\n\n${postUrl}`);
-    window.open(`mailto:?subject=${subject}&body=${body}`);
-  };
+
 
   const shareToFacebook = () => {
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
     window.open(url, "_blank", "width=600,height=400");
   };
 
-  const shareToTwitter = () => {
+  const shareToX = () => {
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(postUrl)}`;
     window.open(url, "_blank", "width=600,height=400");
   };
 
-  const shareToLinkedIn = () => {
-    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`;
-    window.open(url, "_blank", "width=600,height=400");
-  };
+
 
   const shareToInstagram = () => {
     // Instagram doesn't support direct URL sharing, so we'll copy the link
