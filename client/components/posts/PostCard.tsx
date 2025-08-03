@@ -40,7 +40,6 @@ import {
   Edit3,
   Trash2,
   Flag,
-  Bookmark,
   Reply,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
