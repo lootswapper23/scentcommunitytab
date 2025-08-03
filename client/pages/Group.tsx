@@ -108,6 +108,7 @@ const posts = [
       totalVotes: 95,
       userVoted: "Accessibility features",
       expiresIn: "18 hours",
+      expiresAt: Date.now() + (18 * 60 * 60 * 1000), // 18 hours from now
       isEnded: false,
     },
   },
