@@ -113,6 +113,36 @@ export default function PostCard({
   const [editContent, setEditContent] = useState("");
   const [currentTime, setCurrentTime] = useState(Date.now());
 
+  // Update timer every minute for polls
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Helper function to format remaining time
+  const formatTimeRemaining = (expiresAt: number) => {
+    const now = currentTime;
+    const timeLeft = expiresAt - now;
+
+    if (timeLeft <= 0) {
+      return "Poll ended";
+    }
+
+    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (hours > 0) {
+      return `Expires in ${hours}h ${minutes}m`;
+    } else if (minutes > 0) {
+      return `Expires in ${minutes}m`;
+    } else {
+      return "Expires soon";
+    }
+  };
+
   const handleLike = () => {
     onLike?.(post.id);
   };
