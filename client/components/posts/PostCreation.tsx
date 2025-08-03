@@ -85,6 +85,7 @@ export default function PostCreation({
     setShowPoll(false);
     setPollQuestion("");
     setPollOptions(["", ""]);
+    setHasOrangeBackground(false);
     setIsOpen(false);
   };
 
