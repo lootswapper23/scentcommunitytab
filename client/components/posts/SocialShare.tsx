@@ -93,6 +93,10 @@ export default function SocialShare({
         await navigator.clipboard.writeText(postUrl);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        toast({
+          title: "Link copied!",
+          description: "The post link has been copied to your clipboard.",
+        });
         return;
       }
 
