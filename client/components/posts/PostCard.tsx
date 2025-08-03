@@ -371,9 +371,25 @@ export default function PostCard({
       </CardHeader>
 
       <CardContent className="pt-0">
-        <p className="text-sm leading-relaxed whitespace-pre-line mb-4">
-          {post.content}
-        </p>
+        <div
+          className={cn(
+            "mb-4",
+            post.hasOrangeBackground
+              ? "bg-community-orange rounded-lg p-6 text-center"
+              : ""
+          )}
+        >
+          <p
+            className={cn(
+              "leading-relaxed whitespace-pre-line",
+              post.hasOrangeBackground
+                ? "text-white text-2xl font-medium"
+                : "text-sm"
+            )}
+          >
+            {post.content}
+          </p>
+        </div>
 
         {/* Images */}
         {post.images && post.images.length > 0 && (
