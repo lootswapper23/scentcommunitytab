@@ -420,22 +420,9 @@ export default function Index() {
   return (
     <MobileLayout>
       <div className="max-w-lg mx-auto px-4 py-4 space-y-4">
-        {/* Top Label */}
-        <div
-          className="text-center py-3 cursor-pointer hover:bg-secondary/50 rounded-lg transition-colors"
-          onClick={() => {
-            // Open blank post creation modal - just trigger the modal without content
-            document.querySelector('[data-post-creation-trigger]')?.click();
-          }}
-        >
-          <span className="text-sm text-muted-foreground font-medium">
-            Share your fragrance hot takes
-          </span>
-        </div>
-
         {/* Post Creation */}
         <PostCreation
-          placeholder="Share something with the community..."
+          placeholder="Share your fragrance hot takes"
           onPost={handleNewPost}
           showActionButtons={true}
         />
