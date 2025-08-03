@@ -30,6 +30,7 @@ export default function PostCreation({
   const [showPoll, setShowPoll] = useState(false);
   const [pollQuestion, setPollQuestion] = useState("");
   const [pollOptions, setPollOptions] = useState(["", ""]);
+  const [hasOrangeBackground, setHasOrangeBackground] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
