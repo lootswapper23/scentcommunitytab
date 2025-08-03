@@ -129,7 +129,12 @@ export default function PostCreation({
                       placeholder={placeholder}
                       value={postContent}
                       onChange={(e) => setPostContent(e.target.value)}
-                      className="min-h-24 resize-none border-none shadow-none text-lg placeholder:text-muted-foreground focus-visible:ring-0"
+                      className={cn(
+                        "min-h-24 resize-none border-none shadow-none text-lg focus-visible:ring-0",
+                        hasOrangeBackground
+                          ? "bg-community-orange text-white text-center text-2xl font-medium placeholder:text-white/70 rounded-lg p-6"
+                          : "placeholder:text-muted-foreground"
+                      )}
                     />
                   </div>
                 </div>
