@@ -375,7 +375,7 @@ export default function PostCard({
           className={cn(
             "mb-4",
             post.hasOrangeBackground
-              ? "bg-community-orange rounded-lg p-6 text-center"
+              ? "bg-community-orange rounded-lg p-8 text-center min-h-48 flex items-center justify-center"
               : ""
           )}
         >
@@ -383,7 +383,7 @@ export default function PostCard({
             className={cn(
               "leading-relaxed whitespace-pre-line",
               post.hasOrangeBackground
-                ? "text-white text-2xl font-medium"
+                ? "text-white text-3xl font-bold"
                 : "text-sm"
             )}
           >
