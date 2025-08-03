@@ -369,6 +369,7 @@ export default function Index() {
         <PostCreation
           placeholder="Share something with the community..."
           onPost={handleNewPost}
+          showActionButtons={true}
         />
 
         {/* Community Feed */}
