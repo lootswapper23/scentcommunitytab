@@ -39,6 +39,8 @@ export default function PostCreation({
     const files = Array.from(e.target.files || []);
     if (selectedImages.length + files.length <= 4) {
       setSelectedImages([...selectedImages, ...files]);
+      // Reset orange background when images are added
+      setHasOrangeBackground(false);
     }
   };
 
