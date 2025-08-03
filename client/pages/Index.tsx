@@ -212,6 +212,39 @@ const initialPosts = [
 export default function Index() {
   const [posts, setPosts] = useState(initialPosts);
 
+  // Simulate real-time poll updates from other users
+  useEffect(() => {
+    const pollUpdateInterval = setInterval(() => {
+      setPosts((currentPosts) =>
+        currentPosts.map((post) => {
+          if (post.poll && !post.poll.isEnded && (!post.poll.expiresAt || post.poll.expiresAt > Date.now())) {
+            // Random chance to add votes (simulate other users voting)
+            if (Math.random() < 0.3) { // 30% chance every 5 seconds
+              const randomOptionIndex = Math.floor(Math.random() * post.poll.options.length);
+              const votesToAdd = Math.floor(Math.random() * 3) + 1; // Add 1-3 votes
+
+              return {
+                ...post,
+                poll: {
+                  ...post.poll,
+                  options: post.poll.options.map((option, index) =>
+                    index === randomOptionIndex
+                      ? { ...option, votes: option.votes + votesToAdd }
+                      : option,
+                  ),
+                  totalVotes: post.poll.totalVotes + votesToAdd,
+                },
+              };
+            }
+          }
+          return post;
+        })
+      );
+    }, 5000); // Check every 5 seconds
+
+    return () => clearInterval(pollUpdateInterval);
+  }, []);
+
   const handleLike = (postId: number) => {
     setPosts((currentPosts) =>
       currentPosts.map((post) =>
