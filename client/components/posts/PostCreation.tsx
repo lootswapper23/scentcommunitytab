@@ -73,6 +73,7 @@ export default function PostCreation({
             expiresIn: "24 hours",
           }
         : null,
+      hasOrangeBackground,
       timestamp: new Date(),
     };
 
