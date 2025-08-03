@@ -345,10 +345,6 @@ export default function PostCard({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem>
-                <Bookmark className="h-4 w-4 mr-2" />
-                Save Post
-              </DropdownMenuItem>
-              <DropdownMenuItem>
                 <Flag className="h-4 w-4 mr-2" />
                 Report
               </DropdownMenuItem>
