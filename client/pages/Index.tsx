@@ -354,6 +354,7 @@ export default function Index() {
         URL.createObjectURL(file),
       ),
       poll: newPostData.poll,
+      hasOrangeBackground: newPostData.hasOrangeBackground,
     };
 
     setPosts([newPost, ...posts]);
