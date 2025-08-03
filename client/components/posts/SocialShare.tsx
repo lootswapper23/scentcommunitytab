@@ -135,16 +135,24 @@ export default function SocialShare({
     }
   };
 
-  const shareViaMessages = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: "Community Post",
-        text: shareText,
-        url: postUrl,
-      });
-    } else {
-      // Fallback for devices without Web Share API
-      copyToClipboard();
+  const shareViaMessages = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: "Community Post",
+          text: shareText,
+          url: postUrl,
+        });
+      } else {
+        // Fallback for devices without Web Share API
+        copyToClipboard();
+      }
+    } catch (err) {
+      // User cancelled sharing or sharing failed
+      if (err.name !== 'AbortError') {
+        console.error("Sharing failed: ", err);
+        copyToClipboard();
+      }
     }
   };
 
