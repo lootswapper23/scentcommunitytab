@@ -36,6 +36,7 @@ export default function SocialShare({
 }: SocialShareProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const { toast } = useToast();
 
   const postUrl = `${window.location.origin}/post/${postId}`;
   const shareText = `Check out this post by ${author}: "${postContent.slice(0, 100)}${postContent.length > 100 ? "..." : ""}"`;
