@@ -89,6 +89,7 @@ const initialPosts = [
       totalVotes: 780,
       userVoted: "Work-life balance",
       expiresIn: "18 hours",
+      expiresAt: Date.now() + (18 * 60 * 60 * 1000), // 18 hours from now
       isEnded: false,
     },
   },
