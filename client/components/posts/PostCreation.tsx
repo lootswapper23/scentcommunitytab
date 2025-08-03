@@ -125,6 +125,7 @@ export default function PostCreation({
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
               <Input
+                data-post-creation-trigger
                 placeholder={placeholder}
                 className="cursor-pointer bg-secondary/50"
                 readOnly
