@@ -79,6 +79,7 @@ interface Post {
     totalVotes: number;
     userVoted?: string;
     expiresIn: string;
+    expiresAt?: number; // timestamp
     isEnded?: boolean;
   } | null;
   hasOrangeBackground?: boolean;
