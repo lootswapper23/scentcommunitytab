@@ -111,6 +111,7 @@ export default function PostCard({
   const [replyContent, setReplyContent] = useState("");
   const [editingComment, setEditingComment] = useState<number | null>(null);
   const [editContent, setEditContent] = useState("");
+  const [currentTime, setCurrentTime] = useState(Date.now());
 
   const handleLike = () => {
     onLike?.(post.id);
