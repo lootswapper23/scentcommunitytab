@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Users, Bell, Settings } from "lucide-react";
+import { Users } from "lucide-react";
 
 interface MobileLayoutProps {
   children: ReactNode;
