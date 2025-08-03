@@ -82,6 +82,7 @@ interface Post {
     expiresIn: string;
     isEnded?: boolean;
   } | null;
+  hasOrangeBackground?: boolean;
   groupName?: string;
 }
 
