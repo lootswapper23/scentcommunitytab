@@ -126,14 +126,26 @@ export default function SocialShare({
       if (successful) {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        toast({
+          title: "Link copied!",
+          description: "The post link has been copied to your clipboard.",
+        });
       } else {
-        // If all methods fail, show the URL in an alert as last resort
-        prompt("Copy this link:", text);
+        // If all methods fail, show a toast with manual copy option
+        toast({
+          title: "Copy manually",
+          description: "Please copy this link manually: " + text,
+          variant: "destructive",
+        });
       }
     } catch (err) {
       console.error("Fallback copy failed: ", err);
-      // Final fallback - show the URL in an alert
-      alert(`Copy this link: ${text}`);
+      // Final fallback - show a toast with the URL
+      toast({
+        title: "Copy failed",
+        description: "Please copy this link manually: " + text,
+        variant: "destructive",
+      });
     }
   };
 
