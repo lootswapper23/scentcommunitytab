@@ -71,6 +71,7 @@ export default function PostCreation({
             question: pollQuestion,
             options: pollOptions.filter((opt) => opt.trim() !== ""),
             expiresIn: "24 hours",
+            expiresAt: Date.now() + (24 * 60 * 60 * 1000), // 24 hours from now
           }
         : null,
       hasOrangeBackground,
