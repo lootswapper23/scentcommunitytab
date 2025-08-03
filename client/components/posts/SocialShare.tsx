@@ -120,7 +120,7 @@ export default function SocialShare({
       textArea.select();
 
       // Try to copy using the deprecated execCommand
-      const successful = document.execCommand('copy');
+      const successful = document.execCommand("copy");
 
       document.body.removeChild(textArea);
 
@@ -164,14 +164,12 @@ export default function SocialShare({
       }
     } catch (err) {
       // User cancelled sharing or sharing failed
-      if (err.name !== 'AbortError') {
+      if (err.name !== "AbortError") {
         console.error("Sharing failed: ", err);
         copyToClipboard();
       }
     }
   };
-
-
 
   const shareToFacebook = () => {
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
@@ -182,8 +180,6 @@ export default function SocialShare({
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(postUrl)}`;
     window.open(url, "_blank", "width=600,height=400");
   };
-
-
 
   const shareToInstagram = () => {
     // Instagram doesn't support direct URL sharing, so we'll copy the link
@@ -263,8 +259,6 @@ export default function SocialShare({
               );
             })}
           </div>
-
-
         </div>
       </DialogContent>
     </Dialog>

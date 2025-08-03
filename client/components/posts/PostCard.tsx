@@ -403,7 +403,7 @@ export default function PostCard({
             "mb-4",
             post.hasOrangeBackground
               ? "bg-community-orange rounded-lg p-8 text-center min-h-48 flex items-center justify-center"
-              : ""
+              : "",
           )}
         >
           <p
@@ -411,7 +411,7 @@ export default function PostCard({
               "leading-relaxed whitespace-pre-line",
               post.hasOrangeBackground
                 ? "text-white text-3xl font-bold"
-                : "text-sm"
+                : "text-sm",
             )}
           >
             {post.content}
@@ -515,7 +515,8 @@ export default function PostCard({
                 <span>Vote to see results</span>
               )}
               <span>
-                {post.poll.isEnded || (post.poll.expiresAt && post.poll.expiresAt <= currentTime)
+                {post.poll.isEnded ||
+                (post.poll.expiresAt && post.poll.expiresAt <= currentTime)
                   ? "Poll ended"
                   : post.poll.expiresAt
                     ? formatTimeRemaining(post.poll.expiresAt)

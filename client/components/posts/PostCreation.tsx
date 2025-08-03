@@ -75,7 +75,7 @@ export default function PostCreation({
             question: pollQuestion,
             options: pollOptions.filter((opt) => opt.trim() !== ""),
             expiresIn: "24 hours",
-            expiresAt: Date.now() + (24 * 60 * 60 * 1000), // 24 hours from now
+            expiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours from now
           }
         : null,
       hasOrangeBackground,
@@ -152,7 +152,7 @@ export default function PostCreation({
                         "resize-none border-none shadow-none text-lg focus-visible:ring-0",
                         hasOrangeBackground
                           ? "bg-community-orange text-white text-center text-3xl font-bold placeholder:text-white/70 rounded-lg p-8 min-h-48"
-                          : "min-h-24 placeholder:text-muted-foreground"
+                          : "min-h-24 placeholder:text-muted-foreground",
                       )}
                     />
                   </div>
@@ -245,16 +245,20 @@ export default function PostCreation({
                     <div className="flex items-center space-x-3">
                       <button
                         type="button"
-                        onClick={() => setHasOrangeBackground(!hasOrangeBackground)}
+                        onClick={() =>
+                          setHasOrangeBackground(!hasOrangeBackground)
+                        }
                         className={cn(
                           "w-12 h-12 rounded-lg bg-community-orange transition-all duration-200 hover:scale-105",
                           hasOrangeBackground
                             ? "border-4 border-black shadow-lg"
-                            : "border-2 border-transparent"
+                            : "border-2 border-transparent",
                         )}
                       />
                       <span className="text-sm text-muted-foreground">
-                        {hasOrangeBackground ? "Orange background selected" : ""}
+                        {hasOrangeBackground
+                          ? "Orange background selected"
+                          : ""}
                       </span>
                     </div>
                   </div>

@@ -22,8 +22,7 @@ export default function MobileLayout({ children }: MobileLayoutProps) {
           </div>
 
           {/* Right side */}
-          <div className="flex items-center space-x-3">
-          </div>
+          <div className="flex items-center space-x-3"></div>
         </div>
       </header>
 

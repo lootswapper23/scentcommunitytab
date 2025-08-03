@@ -89,7 +89,7 @@ const initialPosts = [
       totalVotes: 780,
       userVoted: "Work-life balance",
       expiresIn: "18 hours",
-      expiresAt: Date.now() + (18 * 60 * 60 * 1000), // 18 hours from now
+      expiresAt: Date.now() + 18 * 60 * 60 * 1000, // 18 hours from now
       isEnded: false,
     },
   },
@@ -203,7 +203,7 @@ const initialPosts = [
       totalVotes: 224,
       userVoted: undefined, // This poll user hasn't voted on
       expiresIn: "6 hours",
-      expiresAt: Date.now() + (6 * 60 * 60 * 1000), // 6 hours from now
+      expiresAt: Date.now() + 6 * 60 * 60 * 1000, // 6 hours from now
       isEnded: false,
     },
   },
@@ -217,10 +217,17 @@ export default function Index() {
     const pollUpdateInterval = setInterval(() => {
       setPosts((currentPosts) =>
         currentPosts.map((post) => {
-          if (post.poll && !post.poll.isEnded && (!post.poll.expiresAt || post.poll.expiresAt > Date.now())) {
+          if (
+            post.poll &&
+            !post.poll.isEnded &&
+            (!post.poll.expiresAt || post.poll.expiresAt > Date.now())
+          ) {
             // Random chance to add votes (simulate other users voting)
-            if (Math.random() < 0.3) { // 30% chance every 5 seconds
-              const randomOptionIndex = Math.floor(Math.random() * post.poll.options.length);
+            if (Math.random() < 0.3) {
+              // 30% chance every 5 seconds
+              const randomOptionIndex = Math.floor(
+                Math.random() * post.poll.options.length,
+              );
               const votesToAdd = Math.floor(Math.random() * 3) + 1; // Add 1-3 votes
 
               return {
@@ -238,7 +245,7 @@ export default function Index() {
             }
           }
           return post;
-        })
+        }),
       );
     }, 5000); // Check every 5 seconds
 
@@ -250,7 +257,12 @@ export default function Index() {
     const checkExpiredPolls = setInterval(() => {
       setPosts((currentPosts) =>
         currentPosts.map((post) => {
-          if (post.poll && !post.poll.isEnded && post.poll.expiresAt && post.poll.expiresAt <= Date.now()) {
+          if (
+            post.poll &&
+            !post.poll.isEnded &&
+            post.poll.expiresAt &&
+            post.poll.expiresAt <= Date.now()
+          ) {
             return {
               ...post,
               poll: {
@@ -260,7 +272,7 @@ export default function Index() {
             };
           }
           return post;
-        })
+        }),
       );
     }, 30000); // Check every 30 seconds for expired polls
 
