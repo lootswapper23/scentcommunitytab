@@ -288,6 +288,7 @@ export default function Group() {
         URL.createObjectURL(file),
       ),
       poll: newPostData.poll,
+      hasOrangeBackground: newPostData.hasOrangeBackground,
     };
 
     setPostsData([newPost, ...postsData]);
