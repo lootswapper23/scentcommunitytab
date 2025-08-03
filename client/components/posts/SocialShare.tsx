@@ -264,23 +264,7 @@ export default function SocialShare({
             })}
           </div>
 
-          {/* Quick Actions */}
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => setIsOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="flex-1 bg-gradient-to-r from-primary to-community-blue"
-              onClick={shareViaMessages}
-            >
-              <MessageCircle className="h-4 w-4 mr-2" />
-              Quick Share
-            </Button>
-          </div>
+
         </div>
       </DialogContent>
     </Dialog>
