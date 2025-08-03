@@ -24,6 +24,7 @@ interface PostCreationProps {
 export default function PostCreation({
   placeholder = "What's on your mind?",
   onPost,
+  showActionButtons = false,
 }: PostCreationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [postContent, setPostContent] = useState("");
