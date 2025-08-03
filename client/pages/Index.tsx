@@ -203,6 +203,7 @@ const initialPosts = [
       totalVotes: 224,
       userVoted: undefined, // This poll user hasn't voted on
       expiresIn: "6 hours",
+      expiresAt: Date.now() + (6 * 60 * 60 * 1000), // 6 hours from now
       isEnded: false,
     },
   },
