@@ -99,6 +99,19 @@ export default function PostCreation({
       pollQuestion.trim() &&
       pollOptions.filter((opt) => opt.trim()).length >= 2);
 
+  const openWithImage = () => {
+    setIsOpen(true);
+    // Small delay to ensure modal is open before triggering file picker
+    setTimeout(() => {
+      fileInputRef.current?.click();
+    }, 100);
+  };
+
+  const openWithPoll = () => {
+    setIsOpen(true);
+    setShowPoll(true);
+  };
+
   return (
     <Card>
       <CardContent className="pt-6">
