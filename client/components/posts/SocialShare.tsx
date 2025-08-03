@@ -86,11 +86,52 @@ export default function SocialShare({
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(postUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      // Check if Clipboard API is available and permissions are granted
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(postUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        return;
+      }
+
+      // Fallback method using deprecated execCommand
+      fallbackCopyToClipboard(postUrl);
     } catch (err) {
       console.error("Failed to copy: ", err);
+      // Try fallback method if clipboard API fails
+      fallbackCopyToClipboard(postUrl);
+    }
+  };
+
+  const fallbackCopyToClipboard = (text: string) => {
+    try {
+      // Create a temporary textarea element
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+
+      textArea.focus();
+      textArea.select();
+
+      // Try to copy using the deprecated execCommand
+      const successful = document.execCommand('copy');
+
+      document.body.removeChild(textArea);
+
+      if (successful) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        // If all methods fail, show the URL in an alert as last resort
+        prompt("Copy this link:", text);
+      }
+    } catch (err) {
+      console.error("Fallback copy failed: ", err);
+      // Final fallback - show the URL in an alert
+      alert(`Copy this link: ${text}`);
     }
   };
 
