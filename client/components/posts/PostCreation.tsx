@@ -234,7 +234,7 @@ export default function PostCreation({
                       )}
                     />
                     <span className="text-sm text-muted-foreground">
-                      {hasOrangeBackground ? "Orange background selected" : "Click to add orange background"}
+                      {hasOrangeBackground ? "Orange background selected" : ""}
                     </span>
                   </div>
                 </div>
