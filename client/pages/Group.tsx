@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 import PostCreation from "@/components/posts/PostCreation";
 import PostCard from "@/components/posts/PostCard";
@@ -144,6 +144,61 @@ const posts = [
 
 export default function Group() {
   const [postsData, setPostsData] = useState(posts);
+
+  // Simulate real-time poll updates from other users
+  useEffect(() => {
+    const pollUpdateInterval = setInterval(() => {
+      setPostsData((currentPosts) =>
+        currentPosts.map((post) => {
+          if (post.poll && !post.poll.isEnded && (!post.poll.expiresAt || post.poll.expiresAt > Date.now())) {
+            // Random chance to add votes (simulate other users voting)
+            if (Math.random() < 0.3) { // 30% chance every 5 seconds
+              const randomOptionIndex = Math.floor(Math.random() * post.poll.options.length);
+              const votesToAdd = Math.floor(Math.random() * 3) + 1; // Add 1-3 votes
+
+              return {
+                ...post,
+                poll: {
+                  ...post.poll,
+                  options: post.poll.options.map((option, index) =>
+                    index === randomOptionIndex
+                      ? { ...option, votes: option.votes + votesToAdd }
+                      : option,
+                  ),
+                  totalVotes: post.poll.totalVotes + votesToAdd,
+                },
+              };
+            }
+          }
+          return post;
+        })
+      );
+    }, 5000); // Check every 5 seconds
+
+    return () => clearInterval(pollUpdateInterval);
+  }, []);
+
+  // Check for expired polls and mark them as ended
+  useEffect(() => {
+    const checkExpiredPolls = setInterval(() => {
+      setPostsData((currentPosts) =>
+        currentPosts.map((post) => {
+          if (post.poll && !post.poll.isEnded && post.poll.expiresAt && post.poll.expiresAt <= Date.now()) {
+            return {
+              ...post,
+              poll: {
+                ...post.poll,
+                isEnded: true,
+              },
+            };
+          }
+          return post;
+        })
+      );
+    }, 30000); // Check every 30 seconds for expired polls
+
+    return () => clearInterval(checkExpiredPolls);
+  }, []);
 
   const handleLike = (postId: number) => {
     setPostsData((currentPosts) =>
