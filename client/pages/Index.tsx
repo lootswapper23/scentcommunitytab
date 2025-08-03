@@ -245,6 +245,28 @@ export default function Index() {
     return () => clearInterval(pollUpdateInterval);
   }, []);
 
+  // Check for expired polls and mark them as ended
+  useEffect(() => {
+    const checkExpiredPolls = setInterval(() => {
+      setPosts((currentPosts) =>
+        currentPosts.map((post) => {
+          if (post.poll && !post.poll.isEnded && post.poll.expiresAt && post.poll.expiresAt <= Date.now()) {
+            return {
+              ...post,
+              poll: {
+                ...post.poll,
+                isEnded: true,
+              },
+            };
+          }
+          return post;
+        })
+      );
+    }, 30000); // Check every 30 seconds for expired polls
+
+    return () => clearInterval(checkExpiredPolls);
+  }, []);
+
   const handleLike = (postId: number) => {
     setPosts((currentPosts) =>
       currentPosts.map((post) =>
