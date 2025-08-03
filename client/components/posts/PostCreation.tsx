@@ -132,7 +132,7 @@ export default function PostCreation({
                       className={cn(
                         "resize-none border-none shadow-none text-lg focus-visible:ring-0",
                         hasOrangeBackground
-                          ? "bg-community-orange text-white text-center text-3xl font-bold placeholder:text-white/70 rounded-lg p-8 min-h-48 flex items-center justify-center"
+                          ? "bg-community-orange text-white text-center text-3xl font-bold placeholder:text-white/70 rounded-lg p-8 min-h-48"
                           : "min-h-24 placeholder:text-muted-foreground"
                       )}
                     />
