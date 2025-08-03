@@ -453,14 +453,9 @@ export default function PostCard({
                     <div className="relative flex justify-between items-center">
                       <span className="font-medium">{option.text}</span>
                       {showResults ? (
-                        <div className="flex items-center space-x-3">
-                          <span className="text-sm font-semibold text-primary">
-                            {option.votes}
-                          </span>
-                          <span className="text-sm font-bold">
-                            {percentage.toFixed(0)}%
-                          </span>
-                        </div>
+                        <span className="text-sm font-bold">
+                          {percentage.toFixed(0)}%
+                        </span>
                       ) : (
                         <div className="w-4 h-4 rounded-full border-2 border-muted-foreground" />
                       )}
