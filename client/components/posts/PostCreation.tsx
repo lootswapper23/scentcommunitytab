@@ -238,8 +238,8 @@ export default function PostCreation({
                   </div>
                 )}
 
-                {/* Color Background Section - Only show if no images */}
-                {selectedImages.length === 0 && (
+                {/* Color Background Section - Only show if no images and no poll */}
+                {selectedImages.length === 0 && !showPoll && (
                   <div className="p-4 border rounded-lg space-y-3">
                     <h4 className="font-semibold">Add Color Background</h4>
                     <div className="flex items-center space-x-3">
