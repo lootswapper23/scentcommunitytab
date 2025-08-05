@@ -41,6 +41,10 @@ export default function PostCreation({
       setSelectedImages([...selectedImages, ...files]);
       // Reset orange background when images are added
       setHasOrangeBackground(false);
+      // Clear poll when images are added
+      setShowPoll(false);
+      setPollQuestion("");
+      setPollOptions(["", ""]);
     }
   };
 
@@ -103,6 +107,10 @@ export default function PostCreation({
 
   const openWithImage = () => {
     setIsOpen(true);
+    // Clear poll when opening with image
+    setShowPoll(false);
+    setPollQuestion("");
+    setPollOptions(["", ""]);
     // Small delay to ensure modal is open before triggering file picker
     setTimeout(() => {
       fileInputRef.current?.click();
@@ -112,6 +120,9 @@ export default function PostCreation({
   const openWithPoll = () => {
     setIsOpen(true);
     setShowPoll(true);
+    // Clear images when opening with poll
+    setSelectedImages([]);
+    setHasOrangeBackground(false);
   };
 
   return (
@@ -137,26 +148,28 @@ export default function PostCreation({
               </DialogHeader>
 
               <div className="space-y-4">
-                {/* Post Content */}
-                <div className="flex items-start space-x-3">
-                  <Avatar>
-                    <AvatarImage src="/api/placeholder/40/40" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <Textarea
-                      placeholder={placeholder}
-                      value={postContent}
-                      onChange={(e) => setPostContent(e.target.value)}
-                      className={cn(
-                        "resize-none border-none shadow-none text-lg focus-visible:ring-0",
-                        hasOrangeBackground
-                          ? "bg-community-orange text-white text-center text-3xl font-bold placeholder:text-white/70 rounded-lg p-8 min-h-48"
-                          : "min-h-24 placeholder:text-muted-foreground",
-                      )}
-                    />
+                {/* Post Content - Hide when poll is active */}
+                {!showPoll && (
+                  <div className="flex items-start space-x-3">
+                    <Avatar>
+                      <AvatarImage src="/api/placeholder/40/40" />
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <Textarea
+                        placeholder={placeholder}
+                        value={postContent}
+                        onChange={(e) => setPostContent(e.target.value)}
+                        className={cn(
+                          "resize-none border-none shadow-none text-lg focus-visible:ring-0",
+                          hasOrangeBackground
+                            ? "bg-community-orange text-white text-center text-3xl font-bold placeholder:text-white/70 rounded-lg p-8 min-h-48"
+                            : "min-h-24 placeholder:text-muted-foreground",
+                        )}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Selected Images */}
                 {selectedImages.length > 0 && (
@@ -192,11 +205,11 @@ export default function PostCreation({
                       </div>
                     </div>
 
-                    <Input
+                    <Textarea
                       placeholder="Ask a question..."
                       value={pollQuestion}
                       onChange={(e) => setPollQuestion(e.target.value)}
-                      className="font-medium"
+                      className="font-medium text-lg min-h-20 resize-none"
                     />
 
                     <div className="space-y-2">
@@ -290,7 +303,14 @@ export default function PostCreation({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => setShowPoll(!showPoll)}
+                      onClick={() => {
+                        if (!showPoll) {
+                          // Clear images when enabling poll
+                          setSelectedImages([]);
+                          setHasOrangeBackground(false);
+                        }
+                        setShowPoll(!showPoll);
+                      }}
                       className={cn(
                         "text-community-blue hover:text-community-blue hover:bg-community-blue/10",
                         showPoll && "bg-community-blue/10 text-community-blue",
