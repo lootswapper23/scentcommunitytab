@@ -422,8 +422,19 @@ export default function Index() {
       images: newPostData.images?.map((file: File) =>
         URL.createObjectURL(file),
       ),
-      poll: newPostData.poll,
-      hasOrangeBackground: newPostData.hasOrangeBackground,
+      poll: newPostData.poll ? {
+        question: newPostData.poll.question,
+        options: newPostData.poll.options.map((optionText: string) => ({
+          text: optionText,
+          votes: 0
+        })),
+        totalVotes: 0,
+        userVoted: undefined,
+        expiresIn: newPostData.poll.expiresIn,
+        expiresAt: newPostData.poll.expiresAt,
+        isEnded: false,
+      } : null,
+      hasOrangeBackground: newPostData.hasOrangeBackground,ound,kground,ackground,ound,ackground,
     };
 
     setPosts([newPost, ...posts]);
