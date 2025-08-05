@@ -434,7 +434,7 @@ export default function Index() {
         expiresAt: newPostData.poll.expiresAt,
         isEnded: false,
       } : null,
-      hasOrangeBackground: newPostData.hasOrangeBackground,ckground,nd,ground,rangeBackground,
+      hasOrangeBackground: newPostData.hasOrangeBackground,
     };
 
     setPosts([newPost, ...posts]);
